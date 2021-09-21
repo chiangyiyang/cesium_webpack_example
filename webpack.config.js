@@ -29,6 +29,17 @@ module.exports = (_env, args) => ({
           },
         ],
       },
+      {
+        test: /\.(glb|gltf)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'model/[name].[ext]',
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [
