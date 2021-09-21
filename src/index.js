@@ -6,7 +6,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "./img/logo.png";
 import "./style.css";
 
-import { zoomIn, zoomOut, flyTo, getLocation } from "./funs";
+import { zoomIn, zoomOut, flyTo, getLocation, pin } from "./funs";
 
 
 var viewer = new Viewer('cesiumContainer', {
@@ -39,3 +39,4 @@ document.getElementById("zoom_in_ico").onclick = () => zoomIn(viewer,0.8);
 document.getElementById("zoom_out_ico").onclick = () => zoomOut(viewer,1.2);
 document.getElementById("fly_to_ico").onclick = () => flyTo(viewer, 121.5, 23.5, 10000);
 document.getElementById("search_location_ico").onclick = () => getLocation(viewer);
+document.getElementById("pin_ico").onclick = () => pin(viewer);
