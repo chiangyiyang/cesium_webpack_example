@@ -16,3 +16,10 @@ export const zoomOut = function (viewer, z) {
 };
 
 
+export const flyTo = function (viewer, lon, lat, height) {
+  viewer.camera.flyTo({
+    destination: Cesium.Cartesian3.fromDegrees(lon, lat, height),
+  });
+};
+
+

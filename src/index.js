@@ -5,7 +5,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "./img/logo.png";
 import "./style.css";
 
-import { zoomIn, zoomOut } from "./funs";
+import { zoomIn, zoomOut, flyTo } from "./funs";
 
 
 var viewer = new Viewer('cesiumContainer', {
@@ -35,3 +35,4 @@ viewer.camera.setView({
 
 document.getElementById("zoom_in_ico").onclick = () => zoomIn(viewer,0.8);
 document.getElementById("zoom_out_ico").onclick = () => zoomOut(viewer,1.2);
+document.getElementById("fly_to_ico").onclick = () => flyTo(viewer, 121.5, 23.5, 10000);
