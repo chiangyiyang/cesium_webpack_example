@@ -4,13 +4,19 @@
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: -1;
 }
 
 .logo {
-  position: absolute;
-  top: 0;
-  left: 0;
+  width: 30px;
+  height: 30px;
+  filter: invert(1);
 }
+
+.tool_ico {
+  font-size: 2rem;
+}
+
 
 .hide{
   display: none;

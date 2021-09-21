@@ -1,11 +1,10 @@
 import { Viewer, TileMapServiceImageryProvider, buildModuleUrl, Rectangle } from "cesium";
-import "./style.css";
-import * as url from "./img/logo.png";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap-icons/font/bootstrap-icons.css";
 
-const logo = document.createElement("img");
-logo.className="logo";
-logo.src = url.default;
-document.getElementById('logo_container').appendChild(logo);
+import "./img/logo.png";
+import "./style.css";
+
 
 var viewer = new Viewer('cesiumContainer', {
   imageryProvider: new TileMapServiceImageryProvider({

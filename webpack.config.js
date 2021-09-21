@@ -24,7 +24,7 @@ module.exports = (_env, args) => ({
           {
             loader: 'file-loader',
             options: {
-              name: '[name].[ext]',
+              name: 'img/[name].[ext]',
             },
           },
         ],
