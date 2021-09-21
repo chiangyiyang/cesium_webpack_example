@@ -30,13 +30,26 @@ export const flyTo = function (viewer, lon, lat, height) {
 };
 
 
-export const getLocation = (viewer) => {
+const removeLeftClickHandler = () => {
+  left_click_handler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_CLICK);
+  left_click_handler = null;
+}
+
+
+const addLeftClickHandler = (viewer, callback) => {
   if (left_click_handler !== null) {
-    left_click_handler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_CLICK);
-    left_click_handler = null;
+    removeLeftClickHandler();
   }
   left_click_handler = new Cesium.ScreenSpaceEventHandler(viewer.canvas);
-  left_click_handler.setInputAction(function (event) {
+  left_click_handler.setInputAction((event) => {
+    callback(event);
+    removeLeftClickHandler();
+  }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+}
+
+
+export const getLocation = (viewer) => {
+  addLeftClickHandler(viewer, (event) => {
     let click_pos = viewer.camera.pickEllipsoid(
       event.position,
       viewer.scene.globe.ellipsoid
@@ -58,21 +71,13 @@ export const getLocation = (viewer) => {
       setTimeout(() => {
         document.getElementById('info').innerHTML = "";
       }, 3000);
-
-      left_click_handler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_CLICK);
-      left_click_handler = null;
     }
-  }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+  });
 }
 
 
 export const pin = (viewer) => {
-  if (left_click_handler !== null) {
-    left_click_handler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_CLICK);
-    left_click_handler = null;
-  }
-  left_click_handler = new Cesium.ScreenSpaceEventHandler(viewer.canvas);
-  left_click_handler.setInputAction(function (event) {
+  addLeftClickHandler(viewer, (event) => {
     let click_pos = viewer.camera.pickEllipsoid(
       event.position,
       viewer.scene.globe.ellipsoid
@@ -113,20 +118,12 @@ export const pin = (viewer) => {
           pixelOffset: new Cesium.Cartesian2(0, -9)
         }
       });
-
-      left_click_handler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_CLICK);
-      left_click_handler=null;
     }
-  }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+  });
 }
 
 export const place3DModel = (viewer) => {
-  if (left_click_handler !== null) {
-    left_click_handler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_CLICK);
-    left_click_handler = null;
-  }
-  left_click_handler = new Cesium.ScreenSpaceEventHandler(viewer.canvas);
-  left_click_handler.setInputAction(function (event) {
+  addLeftClickHandler(viewer, (event) => {
     let click_pos = viewer.camera.pickEllipsoid(
       event.position,
       viewer.scene.globe.ellipsoid
@@ -137,7 +134,6 @@ export const place3DModel = (viewer) => {
       let cartographic = ellipsoid.cartesianToCartographic(click_pos);
       const lon = cartographic.longitude * 180 / Math.PI;
       const lat = cartographic.latitude * 180 / Math.PI;
-      // console.log(lon, lat);
 
       let msg = `<div class="alert alert-primary alert-dismissible fade show" role="alert">
                 longitude: ${lon.toFixed(3)}°, latitude: ${lat.toFixed(3)}°
@@ -169,12 +165,8 @@ export const place3DModel = (viewer) => {
           roll: 0,
         }
       });
-
-      left_click_handler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_CLICK);
-      left_click_handler = null;
-
     }
-  }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+  });
 }
 
 
@@ -212,12 +204,7 @@ function drillPickEntities(viewer, windowPosition) {
 };
 
 export const pick3DModel = (viewer) => {
-  if (left_click_handler !== null) {
-    left_click_handler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_CLICK);
-    left_click_handler = null;
-  }
-  left_click_handler = new Cesium.ScreenSpaceEventHandler(viewer.canvas);
-  left_click_handler.setInputAction(function (event) {
+  addLeftClickHandler(viewer, (event) => {
     const entity = pickEntity(viewer, event.position);
     if (typeof entity !== 'undefined') {
       let id = entity.id;
@@ -280,8 +267,6 @@ export const pick3DModel = (viewer) => {
         info.hide();
       })
     }
-
-    left_click_handler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_CLICK);
-    left_click_handler = null;
-  }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+  });
 }
+
