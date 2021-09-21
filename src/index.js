@@ -1,17 +1,19 @@
 import { Viewer, TileMapServiceImageryProvider, buildModuleUrl, Rectangle } from "cesium";
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 import "./img/logo.png";
 import "./style.css";
 
-import { zoomIn, zoomOut, flyTo } from "./funs";
+import { zoomIn, zoomOut, flyTo, getLocation } from "./funs";
 
 
 var viewer = new Viewer('cesiumContainer', {
-  imageryProvider: new TileMapServiceImageryProvider({
-    url: buildModuleUrl('Assets/Textures/NaturalEarthII')
-  }),
+  // imageryProvider: new TileMapServiceImageryProvider({
+  //   url: buildModuleUrl('Assets/Textures/NaturalEarthII')
+  // }),
+  // terrainProvider: Cesium.createWorldTerrain(),
   shouldAnimate: true,
   timeline: false,
   animation: false,
@@ -36,3 +38,4 @@ viewer.camera.setView({
 document.getElementById("zoom_in_ico").onclick = () => zoomIn(viewer,0.8);
 document.getElementById("zoom_out_ico").onclick = () => zoomOut(viewer,1.2);
 document.getElementById("fly_to_ico").onclick = () => flyTo(viewer, 121.5, 23.5, 10000);
+document.getElementById("search_location_ico").onclick = () => getLocation(viewer);
