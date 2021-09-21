@@ -5,6 +5,8 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "./img/logo.png";
 import "./style.css";
 
+import { zoomIn, zoomOut } from "./funs";
+
 
 var viewer = new Viewer('cesiumContainer', {
   imageryProvider: new TileMapServiceImageryProvider({
@@ -30,3 +32,6 @@ viewer.camera.setView({
     122, 25.5
   ),
 });
+
+document.getElementById("zoom_in_ico").onclick = () => zoomIn(viewer,0.8);
+document.getElementById("zoom_out_ico").onclick = () => zoomOut(viewer,1.2);
